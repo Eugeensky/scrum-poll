@@ -1,0 +1,40 @@
+﻿@model List<DAL.DTO.PollDescription>;
+@{
+    ViewData["Title"] = "All active";
+}
+<h1>All active polls:</h1>
+<div id="all-polls">
+    @if(Model == null || Model.Count == 0)
+    {
+        <p id="no-active-polls">No active polls</p>
+    }
+    else
+    {
+        @foreach(var poll in Model) {
+            string url = $"/Poll/Open?id={poll.Id}";
+            <p><a href="@url">@poll.Description</a></p>
+        }
+    }
+    
+</div>
+
+<script src="\js\signalr\dist\browser\signalr.min.js"></script>
+<script>
+    const allPollsContainer = document.getElementById("all-polls");
+    const noActivePollsContainer = document.getElementById("no-active-polls");
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/PollHub")
+        .build();
+ 
+    hubConnection.on("AddNew", function (data) {
+        let p = document.createElement("p");
+        let a = document.createElement("a");
+        a.href = "/Poll/Open?id=" + data.id;
+        a.innerText = data.description;
+        p.appendChild(a);
+        if(noActivePollsContainer) noActivePollsContainer.remove();
+        allPollsContainer.appendChild(p); 
+    });
+ 
+    hubConnection.start();
+</script>

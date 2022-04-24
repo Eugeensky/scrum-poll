@@ -1,0 +1,12 @@
+﻿@model DAL.DTO.PollResult;
+@{
+    ViewData["Title"] = "Poll results";
+}
+<h1>Results for - @Model.Description</h1>
+<p>Number of all votes - @Model.VotesCount</p>
+@if(Model.PollOptionResults is not null)
+{
+    @foreach(var opt in Model.PollOptionResults) {
+        <p>@opt.Description - @opt.Result</p>
+    }
+}

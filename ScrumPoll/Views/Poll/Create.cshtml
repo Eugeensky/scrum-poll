@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Create Poll";
+    ViewData["page-css-path"] = "/css/create-poll.css";
+}
+<h1>Create a new poll</h1>
+<form class="poll-form" method="post" action="/Poll/Create">
+    <div class="row"><label class="form-label">Description:</label><input type="text" name="description" /></div>
+    <div class="row"><label class="form-label">Minutes to poll:</label><input type="text" name="timeInMinutes" /></div>
+    <div id="form-options">
+        <p>Options:</p>
+    </div>
+    <div class="add-option-btn" onclick="addOption()">+</div>
+    <input class="submit-btn" type="submit" value="Submit" />
+</form>
+
+
+<script type="text/javascript">
+    let optCount = 1;
+    const optionsContainer = document.getElementById("form-options");
+    addOption();
+    function addOption() {
+        const option = document.createElement("div");
+        option.className = "row";
+        const label = document.createElement("label");
+        label.className = "form-label";
+        label.textContent = optCount + ")";
+        const removeBtn = document.createElement("div");
+        removeBtn.className = "remove-option-btn";
+        removeBtn.textContent = "-";
+        removeBtn.onclick = removeOption;
+        const wrapper = document.createElement("div");
+        wrapper.className = "row-label-wrapper";
+        wrapper.appendChild(label);
+        wrapper.appendChild(removeBtn);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = "options";
+
+        option.appendChild(wrapper);
+        option.appendChild(input);
+        optionsContainer.appendChild(option);
+        optCount++;
+    }
+
+    function removeOption(el) {
+        el.target.parentElement.parentElement.remove();
+        optCount--;
+    }
+</script>
+

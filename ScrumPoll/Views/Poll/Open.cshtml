@@ -1,0 +1,58 @@
+﻿@model DAL.DTO.PollSession;
+@{
+    ViewData["Title"] = "Poll session";
+}
+<h1>@Model.PollDescription</h1>
+<input type="hidden" value="@Model.Id" id="session-id" />
+@if(Model.Options is not null)
+{
+    @foreach(var opt in Model.Options) {
+        <p>
+            <input type="radio" name="option" value="@opt.Id">
+            <span>@opt.Description</span>
+        </p> 
+    }
+}
+<button onclick="submitAnswer()">Submit</button>
+<p id="message"></p>
+
+<script src="\js\signalr\dist\browser\signalr.min.js"></script>
+<script>
+    const messageContainer = document.getElementById("message");
+    const endTime = @Model.StartTime + @Model.TimeInMinutes * 60000;
+    const now = new Date().getTime();
+    if (endTime > now) {
+        setTimeout(submitAnswer, endTime - now);
+    } else {
+        messageContainer.innerText = "Time is over";
+    }
+
+    function submitAnswer() {
+        const value = document.querySelector('input[name="option"]:checked').value;
+        const sessionId = document.getElementById('session-id').value;
+        const formData = new FormData();
+        formData.append('sessionId', sessionId);
+        formData.append('optionId', value);
+
+        fetch('/Poll/SubmitAnswer', {
+            method: 'POST',
+            body: formData,
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "/Poll/Index";
+                return;
+            }
+            messageContainer.innerText = "Not allowed to submit result";
+        });
+    }
+
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/PollHub")
+        .build();
+ 
+    hubConnection.on("PollNotification", function (message) {
+        messageContainer.innerText = message;
+    });
+ 
+    hubConnection.start();
+</script>

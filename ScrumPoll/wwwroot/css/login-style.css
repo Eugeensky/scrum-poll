@@ -1,0 +1,20 @@
+﻿.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+}
+
+.login-form .row {
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.row input {
+    width: 200px;
+}
+
+.submit-btn {
+
+}

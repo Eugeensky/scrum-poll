@@ -1,0 +1,11 @@
+﻿@model bool;
+@{
+    ViewData["Title"] = "Index";
+}
+@if(Model)
+{
+    <p><a href="/Poll/Create">Create a new poll</a></p>
+    <p><a href="/Poll/ShowUnpublished">Publish polls</a></p>
+}
+<p><a href="/Poll/ShowActive">Show active polls</a></p>
+<p><a href="/Poll/ShowPublished">Show published polls</a></p>

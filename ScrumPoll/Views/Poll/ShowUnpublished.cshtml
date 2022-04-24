@@ -1,0 +1,18 @@
+﻿@model List<DAL.DTO.PollDescription>;
+@{
+    ViewData["Title"] = "Publish polls";
+}
+<h1>Publish results for:</h1>
+<div id="all-polls">
+    @if(Model == null || Model.Count == 0)
+    {
+        <p id="no-active-polls">No unpublished polls</p>
+    }
+    else
+    {
+        @foreach(var poll in Model) {
+            string url = $"/Poll/Publish?id={poll.Id}";
+            <p><a href="@url">@poll.Description</a></p>
+        }
+    }
+</div>

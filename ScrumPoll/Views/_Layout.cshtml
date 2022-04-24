@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Hello ASP.NET</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/site.css">
+    @if(ViewData.ContainsKey("page-css-path"))
+    {
+        <link rel="stylesheet" href="@ViewData["page-css-path"]">     
+    }
+</head>
+<body>
+    <section class="header">
+        <span class="title">Scrum Poll</span>
+        <a href="/Login/Index">Logout</a>
+    </section>
+    <section class="content">
+        <div>@RenderBody()</div>   
+    </section>   
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿.poll-form {
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+}
+
+#form-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.poll-form .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.row input {
+    width: 300px;
+}
+
+.add-option-btn, .remove-option-btn {
+    line-height: 20px;
+    text-align: center;
+    font-size: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.add-option-btn {
+    margin-bottom: 20px;
+}
+
+.remove-option-btn {
+    margin-left: 10px;
+}
+
+.row-label-wrapper {
+    display: flex;
+}

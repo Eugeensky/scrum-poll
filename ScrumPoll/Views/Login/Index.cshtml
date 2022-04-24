@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    ViewData["page-css-path"] = "/css/login-style.css";
+}
+<form class="login-form" method="post" action="/Login/Authorize">
+    <div class="row"><label class="form-label">Login:</label><input type="text" name="login" /></div>
+    <div class="row"><label class="form-label">Password:</label><input type="password" name="password" /></div>
+    <input class="submit-btn" type="submit" value="Submit" />
+</form>
+@if(!string.IsNullOrEmpty(ViewBag.Message)) {
+    <p>@ViewBag.Message</p>
+}
